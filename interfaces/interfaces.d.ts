@@ -75,3 +75,6 @@ interface TrendingCardProps {
   movie: TrendingMovie;
   index: number;
 }
+
+export { Movie, MovieDetails, TrendingCardProps, TrendingMovie };
+
