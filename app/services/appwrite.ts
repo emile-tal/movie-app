@@ -1,4 +1,4 @@
-import { Movie } from "@/interfaces/interfaces";
+import { Movie, TrendingMovie } from "@/interfaces/interfaces";
 import { Client, Databases, ID, Query } from "react-native-appwrite";
 
 const DATABASE_ID = process.env.EXPO_PUBLIC_DATABASE_ID!;
@@ -43,6 +43,19 @@ export const updateSearchCount = async (query: string, movie: Movie) => {
                 }
             )
         }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const getTrendingMovies = async (): Promise<TrendingMovie[] | undefined> => {
+    try {
+        const result = await database.listDocuments(
+            DATABASE_ID,
+            COLLECTION_ID,
+            [Query.limit(5), Query.orderDesc("count")]
+        )
+        return result.documents as unknown as TrendingMovie[]
     } catch (error) {
         console.log(error)
     }
